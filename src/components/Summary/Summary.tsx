@@ -1,9 +1,9 @@
-import "./portfolio.scss";
+import "./summary.scss";
 import { resumeData } from './string.ts';
 
-const Portfolio = () => {
+const Summary = () => {
   return (
-    <div className="portfolio" id="portfolio">
+    <div className="Summary" id="Summary">
         <div className="top">
           <section className="professional-summary">
             <h2>Professional Summary</h2>
@@ -50,4 +50,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Summary;
