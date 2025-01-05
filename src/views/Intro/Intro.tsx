@@ -1,4 +1,4 @@
-import "./intro.scss";
+import "./Intro.scss";
 import { ReactTyped } from "react-typed";
 
 interface IntroProps {
@@ -37,7 +37,7 @@ const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
             />
           </h3>
         </div>
-        <a href="#portfolio">
+        <a href="#summary">
           <img src="assets/down.png" alt="down arrow" />
         </a>
       </div>
