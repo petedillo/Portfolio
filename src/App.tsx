@@ -3,6 +3,7 @@ import {useState} from "react";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Menu from "./components/Menu/Menu.tsx";
 import Intro from './components/Intro/Intro.tsx';
+import Portfolio from './components/Portfolio/Portfolio.tsx';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
               <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
               <section className="sections">
                  <Intro menuOpen={menuOpen}/>
-              {/*    <Portfolio/>*/}
+                 <Portfolio/>
               {/*    <Works/>*/}
               {/*    <Testimonials/>*/}
               {/*    <Contact/>*/}
