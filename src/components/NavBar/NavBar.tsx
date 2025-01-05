@@ -1,6 +1,4 @@
 import "./NavBar.scss";
-import Mail  from "@mui/material/Icon";
-import Person  from "@mui/material/Icon";
 import {Dispatch, FC, SetStateAction} from "react";
 
 interface navbarProps {
@@ -18,11 +16,6 @@ const NavBar: FC<navbarProps> = ({ menuOpen, setMenuOpen }) => {
                         pedro.
                     </a>
                     <div className="itemContainer">
-                        <Person className="icon"/>
-                        <span>(512) 765-4979</span>
-                    </div>
-                    <div className="itemContainer">
-                        <Mail className="icon"/>
                         <span>pedelgadillo@gmail.com</span>
                     </div>
                 </div>
