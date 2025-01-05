@@ -11,14 +11,12 @@ function App() {
 
   return (
       <>
-          <div className='app'>
               <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
               <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
               <section className="sections">
                  <Intro menuOpen={menuOpen}/>
                  <Summary/>
               </section>
-          </div>
       </>
   )
 }
