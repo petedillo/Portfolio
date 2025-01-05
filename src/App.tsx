@@ -2,6 +2,7 @@ import './App.scss'
 import {useState} from "react";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Menu from "./components/Menu/Menu.tsx";
+import Intro from './components/Intro/Intro.tsx';
 
 
 function App() {
@@ -12,13 +13,13 @@ function App() {
           <div className='app'>
               <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
               <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-              {/*<div className="sections">*/}
-              {/*    <Intro menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>*/}
+              <section className="sections">
+                 <Intro menuOpen={menuOpen}/>
               {/*    <Portfolio/>*/}
               {/*    <Works/>*/}
               {/*    <Testimonials/>*/}
               {/*    <Contact/>*/}
-              {/*</div>*/}
+              </section>
           </div>
       </>
   )
