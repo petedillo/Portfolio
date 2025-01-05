@@ -6,24 +6,21 @@ interface IntroProps {
 }
 
 const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
-  const typedTextClass = menuOpen ? 'open' : 'closed';
+  const typedTextClass = menuOpen ? "open" : "closed";
 
   return (
     <div className="intro" id="intro">
       <div className="left">
         <div className={"imgContainer " + (menuOpen && "active")}>
-          <img
-            src="assets/pedro.png"
-            alt="Pedro smiling"
-          />
+          <img src="assets/pedro.png" alt="Pedro smiling" />
         </div>
       </div>
       <div className="right">
         <div className="wrapper">
           <h2>Hello! I'm</h2>
           <h1>Pedro Delgadillo</h1>
-          <h3>
-          Seeking opportunities as a{" "}
+          <h3 className={menuOpen ? "closed" : "open"}>
+            Seeking opportunities as a{" "}
             <ReactTyped
               strings={[
                 "Full-Stack Developer",
@@ -34,8 +31,8 @@ const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
               typeSpeed={40}
               backSpeed={50}
               backDelay={1000}
-              startDelay={500} 
-              showCursor={false} 
+              startDelay={500}
+              showCursor={false}
               className={typedTextClass}
             />
           </h3>

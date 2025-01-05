@@ -1,7 +1,8 @@
 @import "../../global.scss";
 
 .intro {
-  background-color: white;
+  background-color: $introPageBG;
+  color: $introPageText;
   display: flex;
 
   .left {
@@ -25,7 +26,6 @@
 
       &.active {
         background-color: $mainColor;
-        color: $mainColor;
       }
     }
   }
@@ -40,7 +40,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-
+      transition: all 1s ease;
       h1 {
         font-size: 60px;
         margin: 10px 0;
@@ -53,12 +53,12 @@
         span {
           font-size: inherit;
         }
-        .open {
-          color: $secondaryColor;
-        }
-        .closed {
-          color:crimson;
-        }
+      }
+      .open {
+        color: $introPageText;
+      }
+      .closed {
+        color: $secondaryColor;
       }
     }
     a {

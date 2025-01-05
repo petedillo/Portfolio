@@ -3,13 +3,14 @@
 .navbar {
     width: 100%;
     height: 70px;
-    background-color: white;
-    color: $mainColor;
+    background-color: $secondaryColor;
+    color: whitesmoke;
     position: fixed;
     top: 0;
     z-index: 3;
     transition: all 1s ease;
-
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
     .wrapper {
         padding: 10px 30px;
         display: flex;
