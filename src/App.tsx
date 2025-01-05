@@ -2,8 +2,8 @@ import './App.scss'
 import {useState} from "react";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Menu from "./components/Menu/Menu.tsx";
-import Intro from './components/Intro/Intro.tsx';
-import Summary from './components/Summary/Summary.tsx';
+import Intro from './views/Intro/Intro.tsx';
+import Summary from './views/Summary/Summary.tsx';
 
 
 function App() {

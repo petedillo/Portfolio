@@ -1,4 +1,4 @@
-import "./intro.scss";
+import "./Intro.scss";
 import { ReactTyped } from "react-typed";
 
 interface IntroProps {
