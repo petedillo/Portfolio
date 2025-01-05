@@ -6,6 +6,8 @@ interface IntroProps {
 }
 
 const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
+  const typedTextClass = menuOpen ? 'open' : 'closed';
+
   return (
     <div className="intro" id="intro">
       <div className="left">
@@ -21,19 +23,20 @@ const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
           <h2>Hello! I'm</h2>
           <h1>Pedro Delgadillo</h1>
           <h3>
-            Looking to hire a{" "}
+          Seeking opportunities as a{" "}
             <ReactTyped
               strings={[
-                "Software Engineer",
                 "Full-Stack Developer",
                 "Java Developer",
                 "DevOps Engineer",
+                "Software Engineer",
               ]}
               typeSpeed={40}
               backSpeed={50}
               backDelay={1000}
               startDelay={500} 
               showCursor={false} 
+              className={typedTextClass}
             />
           </h3>
         </div>
