@@ -8,10 +8,10 @@
     flex: 0.5;
     overflow: hidden;
 
-    .imgContainter {
+    .imgContainer {
       width: 700px;
       height: 700px;
-      background-color: cornflowerblue;
+      background-color: $secondaryColor;
       border-radius: 50%;
       display: flex;
       align-items: flex-end;
@@ -23,14 +23,11 @@
         height: 97%;
       }
 
-
-      // &.active {
-      //   background-color: $mainColor
-      // }
-
+      &.active {
+        background-color: $mainColor;
+        color: $mainColor;
+      }
     }
-
-
   }
   .right {
     flex: 0.5;
@@ -53,9 +50,14 @@
       }
       h3 {
         font-size: 30px;
-        span{
+        span {
           font-size: inherit;
-          color: cornflowerblue;
+        }
+        .open {
+          color: $secondaryColor;
+        }
+        .closed {
+          color:crimson;
         }
       }
     }
