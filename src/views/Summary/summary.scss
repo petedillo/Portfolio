@@ -12,17 +12,12 @@
     .professional-summary {
       color: #f4f4f4;
       text-align: center;
-
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
       width: 100%;
-
-      /* Make sure it adjusts nicely on smaller screens */
       @media (max-width: 768px) {
         max-width: 90%;
         padding: 1rem;
       }
-
-      /* Styling the h2 tag to make it stand out */
       h2 {
         font-size: 2.5rem;
         font-weight: 700;
@@ -30,14 +25,12 @@
         margin-bottom: 1rem;
         color: #f9f9f9;
       }
-
-      /* Styling the paragraph text */
       p {
         font-size: 1rem;
         line-height: 1.6;
-        color: #d3d3d3; /* Lighter gray text for the body */
+        color: #d3d3d3;
         margin: 0 auto;
-        max-width: 600px; /* Limit width to improve readability */
+        max-width: 600px;
       }
     }
   }
@@ -47,16 +40,17 @@
   }
   .experience,
   .education {
-    box-sizing: border-box;
     text-align: center;
     background-color: $summaryPageBG;
     border-radius: 10px;
     box-shadow: 0 4px 8px #000;
-    padding: 10px;
     color: #000;
     margin: 10px;
   }
 
+  .experience:hover{
+    
+  }
   .middle {
     display: flex;
     flex-direction: row;
