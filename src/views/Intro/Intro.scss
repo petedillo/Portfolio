@@ -1,4 +1,4 @@
-@import "../../global";
+@use '../../variables.module.scss' as *;
 
 .intro {
   background-color: $introPageBG;

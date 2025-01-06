@@ -1,4 +1,4 @@
-@import "../../global";
+@use '../../variables.module.scss' as *;
 
 .summary {
   background-color: $mainColor;
