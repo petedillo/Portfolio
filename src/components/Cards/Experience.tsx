@@ -1,6 +1,6 @@
 import {GoArrowLeft} from "react-icons/go";
 import React, {useState} from 'react';
-
+import "./experience.scss"
 interface Experience {
     company: string;
     role: string;
@@ -27,7 +27,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({experiences}) => {
             {currentExperience && (
                 <article className="card">
                     <span className="header">
-                    <GoArrowLeft onClick={handleNextExperience}/> <h1>Experience</h1>
+                    <h1>Experience</h1>
                     </span>
                     <h2>{currentExperience.company}</h2>
                     <h3>{currentExperience.role}</h3>
@@ -37,6 +37,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({experiences}) => {
                             <li key={index}>{responsibility}</li>
                         ))}
                     </ul>
+                    <GoArrowLeft onClick={handleNextExperience}/>
                 </article>
             )}
         </div>
