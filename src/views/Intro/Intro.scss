@@ -1,4 +1,4 @@
-@import "../../global";
+@use '../../variables.module.scss' as *;
 
 .intro {
   background-color: $introPageBG;
@@ -8,7 +8,6 @@
   .left {
     flex: 0.5;
     overflow: hidden;
-
     .imgContainer {
       width: 700px;
       height: 700px;
@@ -61,7 +60,7 @@
         color: $introPageText;
       }
       .closed {
-        color: $secondaryColor;
+        color: $typedText;
       }
     }
     a {

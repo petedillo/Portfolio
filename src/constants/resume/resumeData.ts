@@ -1,4 +1,4 @@
-import { ResumeData } from './types';  // Import the types
+import { ResumeData } from './resumeDataTypes.ts';  // Import the types
 
 export const resumeData: ResumeData = {
   professionalSummary: `
@@ -7,7 +7,7 @@ export const resumeData: ResumeData = {
   experience: [
     {
       company: "Apple",
-      role: "Full Stack Java Developer",
+      role: "Contractor Full Stack Java Developer",
       duration: "Jan 2024 - Present",
       responsibilities: [
         "Developed a full-stack project tracking application using Java, Spring Boot, React, and PostgreSQL.",
@@ -17,11 +17,11 @@ export const resumeData: ResumeData = {
       ]
     },
     {
-      company: "Swatched!",
-      role: "Software Engineer Internship",
+      company: "Contract",
+      role: "Software Engineer",
       duration: "Jan 2023 - May 2023",
       responsibilities: [
-        "Led research for database migration, saving $30,000 annually.",
+        "Led research for database migration.",
         "Enhanced user experience through frontend development and UI changes.",
         "Worked with Jira in an Agile environment."
       ]
@@ -62,7 +62,7 @@ export const resumeData: ResumeData = {
       degree: "Web Development (MERN Stack Certificate)",
       duration: "Feb 2022 - May 2022",
       details: [
-        "Mastered MERN stack (MongoDB, Express, React, Node.js).",
+        "MERN stack (MongoDB, Express, React, Node.js).",
         "Built a full-stack task management system for task tracking."
       ]
     }
