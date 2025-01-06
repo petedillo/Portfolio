@@ -1,6 +1,6 @@
 import "./summary.scss";
 import {resumeData} from "../../constants/resume/resumeData.ts";
-import ExperienceCard from "../../components/ExperienceCard/Experience.tsx";
+import ExperienceCard from "../../components/Cards/Experience.tsx";
 
 const Summary = () => {
     return (
