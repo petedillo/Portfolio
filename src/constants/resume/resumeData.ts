@@ -41,12 +41,13 @@ export const resumeData: ResumeData = {
     {
       institution: "Full Sail University",
       degree: "B.S., Web Development",
-      duration: "Sept 2022 - Present (Expected Graduation: March 2025)",
+      duration: "Graduated March 2025",
       details: [
         "Proficient in client-side & server-side development, full-stack best practices, system design, and DevOps.",
         "Developed expertise in Data Structures and Algorithms (DSAs).",
         "Developed multiple full-stack applications with CI/CD pipelines."
-      ]
+      ],
+      honors: "Salutatorian"
     },
     {
       institution: "Per Scholas Powered by TEKsystems",
