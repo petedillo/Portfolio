@@ -1,22 +1,39 @@
 import "./App.scss";
 import { useState } from "react";
-import NavBar from "./components/NavBar/NavBar.tsx";
-import Menu from "./components/Menu/Menu.tsx";
-import Intro from "./views/Intro/Intro.tsx";
-import Summary from "./views/Summary/Summary.tsx";
+import Header from "./components/Header/Header";
+import Intro from "./views/Intro/Intro";
+import Summary from "./views/Summary/Summary";
+import ScrollArrow from "./components/ScrollArrow/ScrollArrow";
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
+  const sections = ["intro", "summary"];
+
+  const scrollToSection = (index: number) => {
+    const section = document.getElementById(sections[index]);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setCurrentSection(index);
+    }
+  };
 
   return (
-    <>
-      <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <section className="sections">
-        <Intro menuOpen={menuOpen} />
-        <Summary />
-      </section>
-    </>
+    <div className="app">
+      <Header />
+      <main>
+        <section id="intro">
+          <Intro />
+        </section>
+        <section id="summary">
+          <Summary />
+        </section>
+      </main>
+      <ScrollArrow
+        currentSection={currentSection}
+        totalSections={sections.length}
+        onScroll={scrollToSection}
+      />
+    </div>
   );
 }
 

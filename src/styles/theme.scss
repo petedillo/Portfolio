@@ -1,0 +1,98 @@
+// Theme mixin for creating new themes
+@mixin create-theme($name, $bg, $text, $accent, $menu-bg, $menu-text, $glow) {
+  .theme-#{$name} {
+    --theme-bg: #{$bg};
+    --theme-text: #{$text};
+    --theme-accent: #{$accent};
+    --theme-menu-bg: #{$menu-bg};
+    --theme-menu-text: #{$menu-text};
+    --theme-glow: #{$glow};
+  }
+}
+
+// Theme mixins for effects
+@mixin neon-text {
+  color: var(--theme-text);
+  text-shadow: 0 0 10px var(--theme-text),
+               0 0 20px var(--theme-text),
+               0 0 30px var(--theme-accent);
+  filter: drop-shadow(0 0 5px var(--theme-accent));
+}
+
+@mixin neon-glow {
+  box-shadow: 0 0 10px var(--theme-text),
+              0 0 20px var(--theme-accent);
+  filter: drop-shadow(0 0 5px var(--theme-accent));
+}
+
+// Animation keyframes
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px var(--theme-text),
+                 0 0 20px var(--theme-text),
+                 0 0 30px var(--theme-glow);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+// Define themes using the mixin
+@include create-theme(
+  'intro',
+  #1A0026,
+  #FF00FF,
+  #9D00FF,
+  rgba(26, 0, 38, 0.95),
+  #FF00FF,
+  #FF00FF
+);
+
+@include create-theme(
+  'summary',
+  #00a3e0,
+  #ff007f,
+  #ff6f61,
+  rgba(0, 163, 224, 0.95),
+  #ff007f,
+  #ff6f61
+);
+
+@include create-theme(
+  'projects',
+  #2D3047,
+  #00FF9D,
+  #FF00FF,
+  rgba(45, 48, 71, 0.95),
+  #00FF9D,
+  #FF00FF
+);
+
+@include create-theme(
+  'contact',
+  #1A1A2E,
+  #FF00FF,
+  #00FFFF,
+  rgba(26, 26, 46, 0.95),
+  #FF00FF,
+  #00FFFF
+);
+
+// Default theme
+:root {
+  --theme-bg: #1A0026;
+  --theme-text: #FF00FF;
+  --theme-accent: #9D00FF;
+  --theme-menu-bg: rgba(26, 0, 38, 0.95);
+  --theme-menu-text: #FF00FF;
+  --theme-glow: #FF00FF;
+} 

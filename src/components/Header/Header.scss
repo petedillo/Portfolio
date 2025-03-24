@@ -1,0 +1,216 @@
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px var(--header-text),
+                 0 0 20px var(--header-text),
+                 0 0 30px var(--header-glow);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background-color: var(--header-bg);
+
+  * {
+    pointer-events: auto;
+  }
+
+  :global {
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      transition: all 0.5s ease-in-out;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+
+      .logo {
+        color: var(--header-text);
+        font-size: 24px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        animation: neonFlicker 1.5s infinite alternate;
+        text-shadow: 0 0 10px var(--header-text),
+                    0 0 20px var(--header-text),
+                    0 0 30px var(--header-glow);
+
+        &:hover {
+          transform: scale(1.05);
+          animation: none;
+          text-shadow: 0 0 15px var(--header-text),
+                      0 0 30px var(--header-text),
+                      0 0 45px var(--header-glow);
+        }
+      }
+
+      .menu-button {
+        cursor: pointer;
+        padding: 10px;
+        animation: float 3s ease-in-out infinite;
+        
+        .dashes {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          transition: all 0.3s ease-in-out;
+
+          span {
+            width: 30px;
+            height: 2px;
+            background-color: var(--header-text);
+            box-shadow: 0 0 10px var(--header-text),
+                       0 0 20px var(--header-glow);
+            transition: all 0.3s ease-in-out;
+          }
+
+          &:hover {
+            span {
+              box-shadow: 0 0 15px var(--header-text),
+                         0 0 30px var(--header-glow);
+            }
+          }
+
+          &.active {
+            span {
+              &:first-child {
+                transform: translateY(8px) rotate(45deg);
+              }
+              &:nth-child(2) {
+                opacity: 0;
+              }
+              &:last-child {
+                transform: translateY(-8px) rotate(-45deg);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 1001;
+      pointer-events: auto;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100vh;
+      background-color: var(--menu-bg);
+      color: var(--menu-text);
+      transition: all 0.5s ease-in-out;
+      z-index: 1002;
+      pointer-events: auto;
+      padding: 80px 50px;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+
+      ul {
+        color: var(--menu-text);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin: 20px 0;
+
+          a {
+            color: var(--menu-text);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            display: block;
+            padding: 10px 0;
+            text-shadow: 0 0 5px var(--menu-text);
+
+            &:hover {
+              color: var(--header-accent);
+              transform: translateX(10px);
+              text-shadow: 0 0 10px var(--header-accent),
+                          0 0 20px var(--header-accent);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    :global {
+      .navbar {
+        padding: 0 20px;
+        height: 60px;
+
+        .logo {
+          font-size: 20px;
+        }
+
+        .menu-button {
+          .dashes {
+            span {
+              width: 25px;
+            }
+          }
+        }
+      }
+
+      .menu {
+        width: 100%;
+        padding: 70px 30px;
+
+        ul {
+          li {
+            a {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+} 

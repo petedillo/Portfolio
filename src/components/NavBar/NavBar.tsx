@@ -1,34 +1,83 @@
-import "./NavBar.scss";
-import {Dispatch, FC, SetStateAction} from "react";
+import { FC } from 'react';
+import { motion } from 'framer-motion';
+import './NavBar.scss';
 
-interface navbarProps {
-    menuOpen: boolean;
-    setMenuOpen: Dispatch<SetStateAction<boolean>>;
+interface NavBarProps {
+  theme: string;
+  menuOpen: boolean;
+  setMenuOpen: (open: boolean) => void;
 }
 
-// Function component typed with MyComponentProps
-const NavBar: FC<navbarProps> = ({ menuOpen, setMenuOpen }) => {
-    return (
-        <div className={"navbar " + (menuOpen ? "active" : "")}>
-            <div className="wrapper">
-                <div className="left">
-                    <a href="#intro" className="logo">
-                        pedro.
-                    </a>
-                    <div className="itemContainer">
-                        <span>pedelgadillo@gmail.com</span>
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="dashes" onClick={() => setMenuOpen(!menuOpen)}>
-                    <span className="line1"></span>
-                        <span className="line2"></span>
-                        <span className="line3"></span>
-                    </div>
-                </div>
-            </div>
+const NavBar: FC<NavBarProps> = ({ theme, menuOpen, setMenuOpen }) => {
+  const menuIconVariants = {
+    closed: {
+      rotate: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    },
+    open: {
+      rotate: 180,
+      scale: 1.1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const dashVariants = {
+    closed: (i: number) => ({
+      x: 0,
+      y: 0,
+      rotate: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }),
+    open: (i: number) => ({
+      x: i === 0 ? 0 : i === 1 ? -10 : 0,
+      y: i === 0 ? 8 : i === 1 ? 0 : -8,
+      rotate: i === 0 ? 45 : i === 1 ? 0 : -45,
+      opacity: i === 1 ? 0 : 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    })
+  };
+
+  return (
+    <motion.nav 
+      className="navbar"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="logo">PD</div>
+      <motion.div 
+        className="menu-button" 
+        onClick={() => setMenuOpen(!menuOpen)}
+        variants={menuIconVariants}
+        animate={menuOpen ? "open" : "closed"}
+      >
+        <div className="dashes">
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              custom={i}
+              variants={dashVariants}
+              animate={menuOpen ? "open" : "closed"}
+            />
+          ))}
         </div>
-    );
+      </motion.div>
+    </motion.nav>
+  );
 };
 
 export default NavBar;
