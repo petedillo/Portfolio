@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../variables.module.scss' as *;
 
 .intro {
@@ -6,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 100px;
-  background: linear-gradient(135deg, $introPageBG 0%, darken($introPageBG, 10%) 100%);
+  background: linear-gradient(135deg, $introPageBG 0%, color.adjust($introPageBG, $lightness: -10%) 100%);
   color: $introPageText;
   position: relative;
   overflow: hidden;
