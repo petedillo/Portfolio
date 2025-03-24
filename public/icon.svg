@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with glow -->
+  <circle cx="16" cy="16" r="15" fill="#1A0026" stroke="#9D00FF" stroke-width="2"/>
+  <circle cx="16" cy="16" r="15" fill="#1A0026" stroke="#9D00FF" stroke-width="2" opacity="0.5">
+    <animate attributeName="r" values="15;16;15" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- PD Text with neon effect -->
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" 
+        font-family="Abril Fatface" font-size="20" fill="#9D00FF" 
+        filter="url(#neon)">
+    <tspan>PD</tspan>
+    <animate attributeName="fill" 
+             values="#9D00FF;#FF00FF;#9D00FF" 
+             dur="2s" 
+             repeatCount="indefinite"/>
+  </text>
+
+  <!-- Neon glow filter -->
+  <defs>
+    <filter id="neon" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- Outer glow -->
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 5 -2" result="glow"/>
+      
+      <!-- Inner glow -->
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="innerBlur"/>
+      <feColorMatrix in="innerBlur" type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 3 -1" result="innerGlow"/>
+      
+      <!-- Combine glows -->
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="innerGlow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg> 

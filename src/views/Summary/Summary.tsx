@@ -2,7 +2,8 @@ import "./summary.scss";
 import {resumeData} from "../../constants/resume/resumeData.ts";
 import ExperienceCard from "../../components/Cards/Experience.tsx";
 import EducationCard from "../../components/Cards/Education.tsx";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const Summary = () => {
     const containerVariants = {
@@ -10,23 +11,28 @@ const Summary = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2
+                staggerChildren: 0.3,
+                delayChildren: 0.2
             }
         }
     };
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
                 type: "spring",
                 stiffness: 100,
-                damping: 10
+                damping: 12,
+                mass: 0.8
             }
         }
     };
+
+    const summaryRef = useRef(null);
+    const isInView = useInView(summaryRef, { once: true, margin: "-100px" });
 
     return (
         <div className="summary" id="summary">
@@ -38,9 +44,11 @@ const Summary = () => {
             >
                 <motion.section 
                     className="professional-summary"
-                    variants={itemVariants}
+                    ref={summaryRef}
                 >
-                    <h2 className="terminal-title">Professional Summary</h2>
+                    <h2 className={`terminal-title ${isInView ? 'visible' : ''}`}>
+                        Professional Summary
+                    </h2>
                     <div className="terminal-content">
                         <p>{resumeData.professionalSummary}</p>
                     </div>

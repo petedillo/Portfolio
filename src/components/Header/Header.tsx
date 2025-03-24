@@ -4,11 +4,9 @@ import NavBar from '../NavBar/NavBar';
 import Menu from '../Menu/Menu';
 import './Header.scss';
 
-interface HeaderProps {
-  currentTheme: string;
-}
+interface HeaderProps {}
 
-const Header: FC<HeaderProps> = ({ currentTheme }) => {
+const Header: FC<HeaderProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const headerVariants = {
@@ -31,14 +29,12 @@ const Header: FC<HeaderProps> = ({ currentTheme }) => {
       animate="visible"
     >
       <NavBar 
-        theme={currentTheme} 
         menuOpen={menuOpen} 
         setMenuOpen={setMenuOpen} 
       />
       <AnimatePresence>
         {menuOpen && (
           <Menu 
-            theme={currentTheme} 
             menuOpen={menuOpen} 
             setMenuOpen={setMenuOpen} 
           />

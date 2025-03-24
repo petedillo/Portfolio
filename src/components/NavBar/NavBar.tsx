@@ -3,12 +3,11 @@ import { motion } from 'framer-motion';
 import './NavBar.scss';
 
 interface NavBarProps {
-  theme: string;
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
 }
 
-const NavBar: FC<NavBarProps> = ({ theme, menuOpen, setMenuOpen }) => {
+const NavBar: FC<NavBarProps> = ({ menuOpen, setMenuOpen }) => {
   const menuIconVariants = {
     closed: {
       rotate: 0,
@@ -29,7 +28,7 @@ const NavBar: FC<NavBarProps> = ({ theme, menuOpen, setMenuOpen }) => {
   };
 
   const dashVariants = {
-    closed: (i: number) => ({
+    closed: () => ({
       x: 0,
       y: 0,
       rotate: 0,

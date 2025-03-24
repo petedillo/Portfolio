@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Intro from "./views/Intro/Intro";
 import Summary from "./views/Summary/Summary";
 import ScrollArrow from "./components/ScrollArrow/ScrollArrow";
+import { setViewportHeight } from './utils/viewport';
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -15,6 +16,10 @@ function App() {
     document.body.className = `theme-${sections[currentSection]}`;
   }, [currentSection, sections]);
 
+  useEffect(() => {
+    setViewportHeight();
+  }, []);
+
   // Optimized scroll handler with debouncing
   const handleScroll = useCallback(() => {
     if (isScrolling) return;
@@ -24,8 +29,6 @@ function App() {
     const summarySection = document.getElementById('summary');
 
     if (introSection && summarySection) {
-      const introBottom = introSection.offsetTop + introSection.offsetHeight;
-      const summaryBottom = summarySection.offsetTop + summarySection.offsetHeight;
 
       // Determine which section is closest to the viewport center
       const introDistance = Math.abs(scrollPosition - (introSection.offsetTop + introSection.offsetHeight / 2));
@@ -89,7 +92,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header currentTheme={sections[currentSection]} />
+      <Header />
       <main>
         <section id="intro">
           <Intro />
@@ -100,9 +103,7 @@ function App() {
       </main>
       <ScrollArrow
         currentSection={currentSection}
-        totalSections={sections.length}
         onScroll={scrollToSection}
-        theme={sections[currentSection]}
       />
     </div>
   );

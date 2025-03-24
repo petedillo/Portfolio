@@ -4,19 +4,13 @@ import "./scrollArrow.scss";
 
 interface ScrollArrowProps {
   currentSection: number;
-  totalSections: number;
   onScroll: (index: number) => void;
-  theme: string;
 }
 
 const ScrollArrow: FC<ScrollArrowProps> = ({
   currentSection,
-  totalSections,
-  onScroll,
-  theme
+  onScroll
 }) => {
-  const isLastSection = currentSection === totalSections - 1;
-
   return (
     <motion.div
       className="scroll-arrow"
