@@ -1,0 +1,154 @@
+@use '../../styles/theme.scss' as *;
+
+.education-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .card {
+    background: rgba(10, 25, 47, 0.7);
+    border: 1px solid var(--theme-text);
+    border-radius: 5px;
+    padding: 2rem;
+    color: var(--theme-text);
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px var(--theme-glow);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--theme-text);
+      animation: scanline 2s linear infinite;
+    }
+
+    .terminal-prompt {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      &::before {
+        content: '$';
+        color: var(--theme-accent);
+        margin-right: 0.5rem;
+        font-weight: bold;
+      }
+
+      h2 {
+        color: var(--theme-accent);
+        font-size: 1.8rem;
+        margin: 0;
+        text-shadow: 0 0 5px var(--theme-accent);
+      }
+
+      .arrow-container {
+        cursor: pointer;
+        
+        .arrow {
+          font-size: 2rem;
+          color: var(--theme-accent);
+          filter: drop-shadow(0 0 5px var(--theme-accent));
+          cursor: pointer;
+          
+          &:hover {
+            color: var(--theme-text);
+          }
+        }
+      }
+    }
+
+    h3 {
+      color: var(--theme-accent);
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem 0;
+      text-shadow: 0 0 5px var(--theme-accent);
+    }
+
+    .duration {
+      color: var(--theme-text);
+      font-size: 1.1rem;
+      margin: 0 0 1rem 0;
+      opacity: 0.8;
+    }
+
+    .honors {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid var(--theme-accent);
+      border-radius: 3px;
+
+      .honors-label {
+        color: var(--theme-accent);
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+
+      .honors-value {
+        color: var(--theme-text);
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--theme-text);
+
+        &::before {
+          content: ">";
+          color: var(--theme-accent);
+          position: absolute;
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .education-card {
+    .card {
+      padding: 1.5rem;
+
+      .terminal-prompt {
+        h2 {
+          font-size: 1.4rem;
+        }
+
+        .arrow-container .arrow {
+          font-size: 1.5rem;
+        }
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      .duration {
+        font-size: 1rem;
+      }
+    }
+  }
+} 
