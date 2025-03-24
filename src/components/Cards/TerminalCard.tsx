@@ -1,5 +1,6 @@
 import { GoArrowLeft } from "react-icons/go";
 import React, { useState } from 'react';
+import { motion, Variants } from 'framer-motion';
 import "./terminalCard.scss";
 
 interface TerminalCardItem {
@@ -28,13 +29,38 @@ const TerminalCard: React.FC<TerminalCardProps> = ({ items, type }) => {
 
     const currentItem = items[currentIndex];
 
+    const arrowVariants: Variants = {
+        initial: { x: 0 },
+        hover: {
+            x: [0, -5, 0],
+            transition: {
+                duration: 0.5,
+                repeat: Infinity,
+                repeatType: "reverse" as const,
+                ease: "easeInOut"
+            }
+        },
+        tap: {
+            scale: 0.9,
+            transition: { duration: 0.1 }
+        }
+    };
+
     return (
         <div className={`${type}-card`}>
             <div className="card">
                 <div className="terminal-prompt">
                     <h2>{currentItem.title}</h2>
                     <div className="arrow-container">
-                        <GoArrowLeft className="arrow" onClick={handleNextItem} />
+                        <motion.div
+                            variants={arrowVariants}
+                            initial="initial"
+                            whileHover="hover"
+                            whileTap="tap"
+                            onClick={handleNextItem}
+                        >
+                            <GoArrowLeft className="arrow" />
+                        </motion.div>
                     </div>
                 </div>
                 <h3>{currentItem.subtitle}</h3>
