@@ -24,8 +24,6 @@ function App() {
     const summarySection = document.getElementById('summary');
 
     if (introSection && summarySection) {
-      const introBottom = introSection.offsetTop + introSection.offsetHeight;
-      const summaryBottom = summarySection.offsetTop + summarySection.offsetHeight;
 
       // Determine which section is closest to the viewport center
       const introDistance = Math.abs(scrollPosition - (introSection.offsetTop + introSection.offsetHeight / 2));
