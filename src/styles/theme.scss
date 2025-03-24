@@ -54,7 +54,7 @@
   #9D00FF,
   rgba(26, 0, 38, 0.95),
   #FF00FF,
-  #FF00FF
+  #9D00FF
 );
 
 @include create-theme(
@@ -64,7 +64,7 @@
   #00FF7F,  // Bright green-blue accent
   rgba(10, 15, 36, 0.95),  // Semi-transparent dark blue menu
   #5C9EFF,  // Soft neon blue menu text
-  #FF007F   // Neon pink glow for highlights
+  #00FFFF   // Cyan glow for highlights
 );
 
 @include create-theme(
@@ -74,7 +74,7 @@
   #FF00FF,
   rgba(45, 48, 71, 0.95),
   #00FF9D,
-  #FF00FF
+  #00FF9D
 );
 
 @include create-theme(
@@ -94,5 +94,5 @@
   --theme-accent: #9D00FF;
   --theme-menu-bg: rgba(26, 0, 38, 0.95);
   --theme-menu-text: #FF00FF;
-  --theme-glow: #FF00FF;
+  --theme-glow: #9D00FF;
 } 
