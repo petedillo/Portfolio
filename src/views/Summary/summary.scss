@@ -1,8 +1,8 @@
 @use '../../styles/theme.scss' as *;
 
 .summary {
-  min-height: 100vh;
-  padding: 100px 50px;
+  height: 100%;
+  width: 100%;
   background: var(--theme-bg);
   color: var(--theme-text);
   display: flex;
@@ -10,10 +10,12 @@
   align-items: center;
   position: relative;
   font-family: 'Courier New', monospace;
+  padding: 80px 20px;
+  overflow-y: auto;
 
   .terminal-title {
-    font-size: 40px;
-    margin-bottom: 50px;
+    font-size: clamp(24px, 5vw, 40px);
+    margin-bottom: clamp(20px, 5vw, 50px);
     text-align: center;
     color: var(--theme-text);
     text-shadow: 0 0 10px var(--theme-text);
@@ -31,17 +33,20 @@
   .top, .middle {
     width: 100%;
     max-width: 1200px;
+    margin: 0 auto;
   }
 
   .professional-summary {
     background: rgba(10, 25, 47, 0.7);
     border: 1px solid var(--theme-text);
     border-radius: 5px;
-    padding: 2rem;
-    margin-bottom: 3rem;
+    padding: clamp(1rem, 3vw, 2rem);
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 10px var(--theme-glow);
+    min-height: 200px;
+    width: 100%;
 
     &::before {
       content: '';
@@ -55,24 +60,30 @@
     }
 
     .terminal-content {
+      height: 100%;
+      overflow-y: auto;
+      
       p {
         line-height: 1.6;
         margin: 0;
         color: var(--theme-text);
         text-shadow: 0 0 5px var(--theme-text);
+        font-size: clamp(14px, 2vw, 16px);
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
     }
   }
 
   .middle {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
 
     section {
       h2 {
-        font-size: 32px;
-        margin-bottom: 2rem;
+        font-size: clamp(24px, 4vw, 32px);
+        margin-bottom: clamp(1rem, 3vw, 2rem);
         color: var(--theme-accent);
         text-shadow: 0 0 10px var(--theme-accent);
       }
@@ -88,6 +99,7 @@
         position: relative;
         overflow: hidden;
         box-shadow: 0 0 10px var(--theme-glow);
+        height: 200px;
 
         &:hover {
           border-color: var(--theme-accent);
@@ -155,7 +167,7 @@
 
 @media (max-width: 768px) {
   .summary {
-    padding: 80px 20px;
+    padding: 60px 15px;
 
     .terminal-title {
       font-size: 32px;
@@ -165,6 +177,8 @@
     .middle {
       grid-template-columns: 1fr;
       gap: 2rem;
+      width: 90vw;
+      margin: 0 auto;
 
       section {
         h2 {
@@ -176,6 +190,7 @@
       .education {
         .degree {
           padding: 1rem;
+          height: 200px;
 
           .terminal-prompt h3 {
             font-size: 1.2rem;
@@ -187,5 +202,25 @@
         }
       }
     }
+
+    .professional-summary {
+      width: 90vw;
+      margin: 0 auto 2rem;
+      min-height: 200px;
+      padding: 1rem;
+
+      .terminal-content {
+        p {
+          font-size: 14px;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .summary {
+    padding: 40px 10px;
   }
 }
