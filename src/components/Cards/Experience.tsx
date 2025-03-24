@@ -26,7 +26,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({experiences}) => {
     return (
         <div className="experience-card">
             {currentExperience && (
-                <article className="card">
+                <article className="experience-card">
                     <h2>{currentExperience.company}</h2>
                     <h3>{currentExperience.role}</h3>
                     <p>{currentExperience.duration}</p>

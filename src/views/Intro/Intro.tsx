@@ -69,14 +69,6 @@ const Intro: FC<IntroProps> = ({ menuOpen = false }) => {
             </span>
           </motion.h3>
         </div>
-        <motion.a 
-          href="#summary"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
-          <img src="assets/down.png" alt="down arrow" />
-        </motion.a>
       </motion.div>
     </div>
   );
