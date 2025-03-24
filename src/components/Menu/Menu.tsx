@@ -3,12 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Menu.scss';
 
 interface MenuProps {
-  theme: string;
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
 }
 
-const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
+const Menu: FC<MenuProps> = ({ menuOpen, setMenuOpen }) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -92,7 +92,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header currentTheme={sections[currentSection]} />
+      <Header />
       <main>
         <section id="intro">
           <Intro />
@@ -103,9 +103,7 @@ function App() {
       </main>
       <ScrollArrow
         currentSection={currentSection}
-        totalSections={sections.length}
         onScroll={scrollToSection}
-        theme={sections[currentSection]}
       />
     </div>
   );
