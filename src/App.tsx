@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Intro from "./views/Intro/Intro";
 import Summary from "./views/Summary/Summary";
 import ScrollArrow from "./components/ScrollArrow/ScrollArrow";
+import { setViewportHeight } from './utils/viewport';
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -14,6 +15,10 @@ function App() {
   useEffect(() => {
     document.body.className = `theme-${sections[currentSection]}`;
   }, [currentSection, sections]);
+
+  useEffect(() => {
+    setViewportHeight();
+  }, []);
 
   // Optimized scroll handler with debouncing
   const handleScroll = useCallback(() => {
