@@ -3,11 +3,12 @@ $mainColor: #2D3047;
 $secondaryColor: #9387c0;
 
 // Intro section colors
-$introPageBG: #1a1a1a;
-$introPageText: #fff200;
-$introAccent: #39ff14;
-$introMenuBG: rgba(26, 26, 26, 0.95);
-$introMenuText: #fff200;
+$introPageBG: #1A0026; // Deep Purple
+$introPageText: #00FFFF; // Neon Cyan
+$introAccent: #FF00FF; // Neon Pink
+$introMenuBG: rgba(26, 0, 38, 0.95); // Deep Purple with transparency
+$introMenuText: #00FFFF; // Neon Cyan
+$introGlow: #FFF200; // Soft Yellow for glow effects
 
 // Summary section colors
 $summaryPageBG: #00a3e0;
