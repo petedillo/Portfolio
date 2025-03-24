@@ -1,6 +1,6 @@
 import { FC, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import './Menu.scss';
+import './menu.scss';
 
 interface MenuProps {
   menuOpen: boolean;
