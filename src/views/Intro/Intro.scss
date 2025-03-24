@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use '../../variables.module.scss' as *;
+@use '../../styles/theme.scss' as *;
 
 .intro {
   height: 100vh;
@@ -7,10 +8,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 100px;
-  background: linear-gradient(135deg, $introPageBG 0%, color.adjust($introPageBG, $lightness: -10%) 100%);
-  color: $introPageText;
+  background: linear-gradient(135deg, var(--theme-bg) 0%, var(--theme-bg) 100%);
+  color: var(--theme-text);
   position: relative;
   overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    pointer-events: none;
+  }
 
   .left {
     flex: 1;
@@ -24,8 +36,10 @@
       height: 400px;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid $introAccent;
-      box-shadow: 0 0 20px rgba($introAccent, 0.3);
+      border: 4px solid var(--theme-accent);
+      box-shadow: 0 0 20px var(--theme-accent),
+                  0 0 40px var(--theme-accent),
+                  0 0 60px var(--theme-accent);
       transition: all 0.3s ease-in-out;
 
       &.active {
@@ -52,45 +66,31 @@
       h2 {
         font-size: 30px;
         margin-bottom: 20px;
-        color: $introPageText;
+        color: var(--theme-text);
       }
 
       h1 {
         font-size: 60px;
         margin-bottom: 20px;
-        color: $introPageText;
+        color: var(--theme-text);
       }
 
       h3 {
         font-size: 30px;
-        color: $introPageText;
+        color: var(--theme-text);
         margin-bottom: 30px;
 
         &.open {
           .typed-text {
-            color: $introAccent;
-            text-shadow: 0 0 10px rgba($introAccent, 0.5);
+            color: var(--theme-accent);
+            text-shadow: 0 0 5px var(--theme-accent);
           }
         }
 
         &.closed {
           .typed-text {
-            color: $introPageText;
+            color: var(--theme-text);
           }
-        }
-      }
-    }
-
-    a {
-      margin-top: 30px;
-      img {
-        width: 30px;
-        height: 30px;
-        filter: invert(1);
-        transition: transform 0.3s ease-in-out;
-
-        &:hover {
-          transform: translateY(10px);
         }
       }
     }
