@@ -1,4 +1,24 @@
-@use '../../variables.module.scss' as *;
+@use '../../styles/theme.scss' as *;
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px currentColor,
+                 0 0 20px currentColor,
+                 0 0 30px var(--accent-color);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
 .navbar {
     position: fixed;
@@ -12,26 +32,23 @@
     justify-content: space-between;
     z-index: 1002;
     transition: all 0.5s ease-in-out;
-    background-color: var(--header-bg);
-    color: var(--header-text);
+    background-color: var(--theme-menu-bg);
+    color: var(--theme-menu-text);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 
     .logo {
         font-size: 24px;
         font-weight: bold;
-        color: var(--header-text);
         transition: all 0.3s ease-in-out;
         animation: neonFlicker 1.5s infinite alternate;
-        text-shadow: 0 0 10px var(--header-text),
-                    0 0 20px var(--header-text),
-                    0 0 30px var(--header-glow);
+        @include neon-text;
 
         &:hover {
             transform: scale(1.05);
             animation: none;
-            text-shadow: 0 0 15px var(--header-text),
-                        0 0 30px var(--header-text),
-                        0 0 45px var(--header-glow);
+            text-shadow: 0 0 15px var(--theme-text),
+                        0 0 30px var(--theme-text),
+                        0 0 45px var(--theme-glow);
         }
     }
 
@@ -52,9 +69,8 @@
                 position: absolute;
                 width: 100%;
                 height: 2px;
-                background-color: var(--header-text);
-                box-shadow: 0 0 10px var(--header-text),
-                            0 0 20px var(--header-glow);
+                background-color: var(--theme-menu-text);
+                @include neon-glow;
                 border-radius: 2px;
                 transform-origin: center;
                 will-change: transform, opacity;
@@ -76,8 +92,8 @@
 
         &:hover {
             .dashes span {
-                box-shadow: 0 0 15px var(--header-text),
-                            0 0 30px var(--header-glow);
+                box-shadow: 0 0 15px var(--theme-text),
+                            0 0 30px var(--theme-glow);
             }
         }
     }

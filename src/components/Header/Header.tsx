@@ -2,23 +2,17 @@ import { FC, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
 import Menu from '../Menu/Menu';
-import { sectionThemes, defaultTheme, SectionTheme } from '../../constants/themes';
 import './Header.scss';
 
 interface HeaderProps {
-  initialTheme?: SectionTheme;
+  initialTheme?: string;
 }
 
-const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
+const Header: FC<HeaderProps> = ({ initialTheme = 'intro' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<SectionTheme>(initialTheme);
+  const [currentTheme, setCurrentTheme] = useState<string>(initialTheme);
 
   useEffect(() => {
-    // Apply theme colors to CSS variables
-    document.documentElement.style.setProperty('--header-bg', currentTheme.menuBackground);
-    document.documentElement.style.setProperty('--header-text', currentTheme.menuText);
-    document.documentElement.style.setProperty('--header-glow', currentTheme.accent);
-
     const observerOptions = {
       threshold: 0.5,
       rootMargin: '-50% 0px -50% 0px'
@@ -28,12 +22,9 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
-          const newTheme = sectionThemes[sectionId as keyof typeof sectionThemes] || defaultTheme;
-          setCurrentTheme(newTheme);
-          // Update CSS variables when theme changes
-          document.documentElement.style.setProperty('--header-bg', newTheme.menuBackground);
-          document.documentElement.style.setProperty('--header-text', newTheme.menuText);
-          document.documentElement.style.setProperty('--header-glow', newTheme.accent);
+          setCurrentTheme(sectionId);
+          // Apply theme class to body
+          document.body.className = `theme-${sectionId}`;
         }
       });
     }, observerOptions);
@@ -41,8 +32,11 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
     const sections = document.querySelectorAll('section[id]');
     sections.forEach((section) => observer.observe(section));
 
+    // Set initial theme
+    document.body.className = `theme-${initialTheme}`;
+
     return () => observer.disconnect();
-  }, [currentTheme]);
+  }, [initialTheme]);
 
   const headerVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -63,9 +57,19 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
       initial="hidden"
       animate="visible"
     >
-      <NavBar theme={currentTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <NavBar 
+        theme={currentTheme} 
+        menuOpen={menuOpen} 
+        setMenuOpen={setMenuOpen} 
+      />
       <AnimatePresence>
-        {menuOpen && <Menu theme={currentTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+        {menuOpen && (
+          <Menu 
+            theme={currentTheme} 
+            menuOpen={menuOpen} 
+            setMenuOpen={setMenuOpen} 
+          />
+        )}
       </AnimatePresence>
     </motion.header>
   );

@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { SectionTheme } from '../../constants/themes';
 import './NavBar.scss';
 
 interface NavBarProps {
-  theme: SectionTheme;
+  theme: string;
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
 }
