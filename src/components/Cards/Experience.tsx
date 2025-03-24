@@ -1,45 +1,17 @@
-import {GoArrowLeft} from "react-icons/go";
-import React, {useState} from 'react';
-import "./experience.scss"
+import React from 'react';
+import TerminalCard from './TerminalCard';
+import { resumeData } from '../../constants/resume/resumeData';
+import { Experience } from '../../constants/resume/resumeDataTypes';
 
-interface Experience {
-    company: string;
-    role: string;
-    duration: string;
-    responsibilities: string[];
-}
+const ExperienceCard: React.FC = () => {
+    const formattedExperience = resumeData.experience.map((exp: Experience) => ({
+        title: exp.company,
+        subtitle: exp.role,
+        duration: exp.duration,
+        items: exp.responsibilities
+    }));
 
-interface ExperienceCardProps {
-    experiences: Experience[];
-}
-
-const ExperienceCard: React.FC<ExperienceCardProps> = ({experiences}) => {
-    const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
-
-    const handleNextExperience = () => {
-        const newIndex = (currentExperienceIndex + 1) % experiences.length;
-        setCurrentExperienceIndex(newIndex);
-    };
-
-    const currentExperience = experiences[currentExperienceIndex];
-
-    return (
-        <div className="experience-card">
-            {currentExperience && (
-                <article className="experience-card">
-                    <h2>{currentExperience.company}</h2>
-                    <h3>{currentExperience.role}</h3>
-                    <p>{currentExperience.duration}</p>
-                    <ul>
-                        {currentExperience.responsibilities.map((responsibility, index) => (
-                            <li key={index}>{responsibility}</li>
-                        ))}
-                    </ul>
-                    <GoArrowLeft onClick={handleNextExperience}/>
-                </article>
-            )}
-        </div>
-    );
+    return <TerminalCard items={formattedExperience} type="experience" />;
 };
 
-export default ExperienceCard;
+export default ExperienceCard; 

@@ -8,7 +8,7 @@ export const resumeData: ResumeData = {
     {
       company: "Apple",
       role: "Contractor Full Stack Java Developer",
-      duration: "Jan 2024 - Present",
+      duration: "Jan 2024 - Jan 2025",
       responsibilities: [
         "Developed a full-stack project tracking application using Java, Spring Boot, React, and PostgreSQL.",
         "Deployed application using Terraform and AWS.",
@@ -41,12 +41,13 @@ export const resumeData: ResumeData = {
     {
       institution: "Full Sail University",
       degree: "B.S., Web Development",
-      duration: "Sept 2022 - Present (Expected Graduation: March 2025)",
+      duration: "Graduated March 2025",
       details: [
         "Proficient in client-side & server-side development, full-stack best practices, system design, and DevOps.",
         "Developed expertise in Data Structures and Algorithms (DSAs).",
         "Developed multiple full-stack applications with CI/CD pipelines."
-      ]
+      ],
+      honors: "Salutatorian"
     },
     {
       institution: "Per Scholas Powered by TEKsystems",

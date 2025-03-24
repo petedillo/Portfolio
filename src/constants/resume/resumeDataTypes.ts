@@ -12,6 +12,7 @@ export interface Experience {
     degree: string;
     duration: string;
     details: string[];
+    honors?: string;
   }
   
   export interface ResumeData {

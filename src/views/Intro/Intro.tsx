@@ -8,7 +8,7 @@ interface IntroProps {
 }
 
 const Intro: FC<IntroProps> = ({ menuOpen = false }) => {
-  const typedTextClass = menuOpen ? "open" : "closed";
+  const typedTextClass = menuOpen ? "closed" : "open";
 
   return (
     <div className="intro" id="intro">

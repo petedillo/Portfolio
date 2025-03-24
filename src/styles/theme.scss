@@ -59,12 +59,12 @@
 
 @include create-theme(
   'summary',
-  #00a3e0,
-  #ff007f,
-  #ff6f61,
-  rgba(0, 163, 224, 0.95),
-  #ff007f,
-  #ff6f61
+  #0A0F24,  // Deep dark blue background
+  #00FFFF,  // Bright cyan text
+  #00FF7F,  // Bright green-blue accent
+  rgba(10, 15, 36, 0.95),  // Semi-transparent dark blue menu
+  #5C9EFF,  // Soft neon blue menu text
+  #FF007F   // Neon pink glow for highlights
 );
 
 @include create-theme(

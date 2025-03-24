@@ -25,20 +25,23 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 70px;
+    height: 80px;
     padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1002;
+    z-index: 100;
     transition: all 0.5s ease-in-out;
     background-color: var(--theme-menu-bg);
+    backdrop-filter: blur(5px);
     color: var(--theme-menu-text);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 
     .logo {
         font-size: 24px;
         font-weight: bold;
+        color: var(--theme-menu-text);
+        text-shadow: 0 0 5px var(--theme-accent);
         transition: all 0.3s ease-in-out;
         animation: neonFlicker 1.5s infinite alternate;
         @include neon-text;
@@ -53,40 +56,28 @@
     }
 
     .menu-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        padding: 10px;
+        color: var(--theme-menu-text);
         animation: float 3s ease-in-out infinite;
         
         .dashes {
+            width: 24px;
+            height: 20px;
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            position: relative;
-            width: 30px;
-            height: 20px;
+            justify-content: space-between;
 
             span {
-                position: absolute;
                 width: 100%;
                 height: 2px;
                 background-color: var(--theme-menu-text);
-                @include neon-glow;
-                border-radius: 2px;
-                transform-origin: center;
-                will-change: transform, opacity;
-
-                &:nth-child(1) {
-                    top: 0;
-                }
-
-                &:nth-child(2) {
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-
-                &:nth-child(3) {
-                    bottom: 0;
-                }
+                transition: all 0.3s ease;
             }
         }
 
@@ -109,8 +100,11 @@
         }
 
         .menu-button {
+            width: 30px;
+            height: 30px;
+
             .dashes {
-                width: 25px;
+                width: 20px;
                 height: 16px;
             }
         }
