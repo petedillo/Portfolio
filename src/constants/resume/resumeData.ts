@@ -8,7 +8,7 @@ export const resumeData: ResumeData = {
     {
       company: "Apple",
       role: "Contractor Full Stack Java Developer",
-      duration: "Jan 2024 - Present",
+      duration: "Jan 2024 - Jan 2025",
       responsibilities: [
         "Developed a full-stack project tracking application using Java, Spring Boot, React, and PostgreSQL.",
         "Deployed application using Terraform and AWS.",

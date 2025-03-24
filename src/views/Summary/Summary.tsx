@@ -28,7 +28,6 @@ const Summary = () => {
         }
     };
 
-
     return (
         <div className="summary" id="summary">
             <motion.div 
@@ -58,14 +57,14 @@ const Summary = () => {
                     variants={itemVariants}
                 >
                     <h2 className="terminal-title">Experience</h2>
-                    <ExperienceCard experiences={resumeData.experience}/>
+                    <ExperienceCard />
                 </motion.section>
                 <motion.section 
                     className="education"
                     variants={itemVariants}
                 >
                     <h2 className="terminal-title">Education</h2>
-                    <EducationCard education={resumeData.education} />
+                    <EducationCard />
                 </motion.section>
             </motion.div>
         </div>
