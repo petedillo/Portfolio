@@ -6,16 +6,22 @@ const Summary = () => {
     return (
         <div className="summary" id="summary">
             <div className="top">
-
+                <section className="professional-summary">
+                    <h2>Professional Summary</h2>
+                    <p>{resumeData.professionalSummary}</p>
+                </section>
             </div>
             <div className="middle">
-                <ExperienceCard experiences={resumeData.experience}/>
+                <section className="experience">
+                    <h2>Experience</h2>
+                    <ExperienceCard experiences={resumeData.experience}/>
+                </section>
                 <section className="education">
                     <h2>Education</h2>
                     {resumeData.education.map((degree, index) => (
                         <div key={index} className="degree">
                             <h3>{degree.institution}</h3>
-                            <p>
+                            <p className="role">
                                 {degree.degree} ({degree.duration})
                             </p>
                             <ul>
@@ -25,12 +31,6 @@ const Summary = () => {
                             </ul>
                         </div>
                     ))}
-                </section>
-            </div>
-            <div className="bottom">
-                <section className="professional-summary">
-                    <h2>Professional Summary</h2>
-                    <p>{resumeData.professionalSummary}</p>
                 </section>
             </div>
         </div>
