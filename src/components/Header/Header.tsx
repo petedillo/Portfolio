@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
 import Menu from '../Menu/Menu';
 import { sectionThemes, defaultTheme, SectionTheme } from '../../constants/themes';
@@ -14,6 +14,11 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
   const [currentTheme, setCurrentTheme] = useState<SectionTheme>(initialTheme);
 
   useEffect(() => {
+    // Apply theme colors to CSS variables
+    document.documentElement.style.setProperty('--header-bg', currentTheme.menuBackground);
+    document.documentElement.style.setProperty('--header-text', currentTheme.menuText);
+    document.documentElement.style.setProperty('--header-glow', currentTheme.accent);
+
     const observerOptions = {
       threshold: 0.5,
       rootMargin: '-50% 0px -50% 0px'
@@ -25,6 +30,10 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
           const sectionId = entry.target.id;
           const newTheme = sectionThemes[sectionId as keyof typeof sectionThemes] || defaultTheme;
           setCurrentTheme(newTheme);
+          // Update CSS variables when theme changes
+          document.documentElement.style.setProperty('--header-bg', newTheme.menuBackground);
+          document.documentElement.style.setProperty('--header-text', newTheme.menuText);
+          document.documentElement.style.setProperty('--header-glow', newTheme.accent);
         }
       });
     }, observerOptions);
@@ -33,17 +42,31 @@ const Header: FC<HeaderProps> = ({ initialTheme = defaultTheme }) => {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, []);
+  }, [currentTheme]);
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
     <motion.header
       className="header"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={headerVariants}
+      initial="hidden"
+      animate="visible"
     >
       <NavBar theme={currentTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Menu theme={currentTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <AnimatePresence>
+        {menuOpen && <Menu theme={currentTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      </AnimatePresence>
     </motion.header>
   );
 };

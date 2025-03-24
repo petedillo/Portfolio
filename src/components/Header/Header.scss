@@ -1,3 +1,32 @@
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px var(--header-text),
+                 0 0 20px var(--header-text),
+                 0 0 30px var(--header-glow);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -26,17 +55,31 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 50px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 
       .logo {
         color: var(--header-text);
         font-size: 24px;
         font-weight: bold;
-        transition: color 0.5s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        animation: neonFlicker 1.5s infinite alternate;
+        text-shadow: 0 0 10px var(--header-text),
+                    0 0 20px var(--header-text),
+                    0 0 30px var(--header-glow);
+
+        &:hover {
+          transform: scale(1.05);
+          animation: none;
+          text-shadow: 0 0 15px var(--header-text),
+                      0 0 30px var(--header-text),
+                      0 0 45px var(--header-glow);
+        }
       }
 
       .menu-button {
         cursor: pointer;
         padding: 10px;
+        animation: float 3s ease-in-out infinite;
         
         .dashes {
           display: flex;
@@ -48,7 +91,16 @@
             width: 30px;
             height: 2px;
             background-color: var(--header-text);
+            box-shadow: 0 0 10px var(--header-text),
+                       0 0 20px var(--header-glow);
             transition: all 0.3s ease-in-out;
+          }
+
+          &:hover {
+            span {
+              box-shadow: 0 0 15px var(--header-text),
+                         0 0 30px var(--header-glow);
+            }
           }
 
           &.active {
@@ -74,10 +126,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
       z-index: 1001;
       pointer-events: auto;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     .menu {
@@ -92,6 +145,7 @@
       z-index: 1002;
       pointer-events: auto;
       padding: 80px 50px;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
 
       ul {
         color: var(--menu-text);
@@ -110,10 +164,13 @@
             transition: all 0.3s ease-in-out;
             display: block;
             padding: 10px 0;
+            text-shadow: 0 0 5px var(--menu-text);
 
             &:hover {
               color: var(--header-accent);
               transform: translateX(10px);
+              text-shadow: 0 0 10px var(--header-accent),
+                          0 0 20px var(--header-accent);
             }
           }
         }
