@@ -1,12 +1,13 @@
 import "./Intro.scss";
-import { ReactTyped } from "react-typed";
+import { FC } from "react";
 import { motion } from "framer-motion";
+import { ReactTyped } from "react-typed";
 
 interface IntroProps {
-  menuOpen: boolean;
+  menuOpen?: boolean;
 }
 
-const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
+const Intro: FC<IntroProps> = ({ menuOpen = false }) => {
   const typedTextClass = menuOpen ? "open" : "closed";
 
   return (

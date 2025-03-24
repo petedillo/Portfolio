@@ -1,10 +1,21 @@
+// Base colors
 $mainColor: #2D3047;
 $secondaryColor: #9387c0;
-$introPageBG: #00d8b3;
-$introPageText: #fff;
-$summaryPageBG: #f0f0f0;
-$summarySecondaryBG: #F4CBC6;
-$summaryPageText: #000;
-$experience-card-bg: #fff;
 
-$typedText: #f22525
+// Intro section colors
+$introPageBG: #1a1a1a;
+$introPageText: #fff200;
+$introAccent: #39ff14;
+$introMenuBG: rgba(26, 26, 26, 0.95);
+$introMenuText: #fff200;
+
+// Summary section colors
+$summaryPageBG: #00a3e0;
+$summaryPageText: #ff007f;
+$summaryAccent: #ff6f61;
+$summaryMenuBG: rgba(0, 163, 224, 0.95);
+$summaryMenuText: #ff007f;
+
+// Other colors
+$experience-card-bg: #fff;
+$typedText: #f22525;

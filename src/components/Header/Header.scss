@@ -1,0 +1,65 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+
+  * {
+    pointer-events: auto;
+  }
+
+  :global {
+    .navbar {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      transition: all 0.5s ease-in-out;
+      pointer-events: auto;
+      z-index: 1002;
+
+      .logo {
+        color: var(--header-text);
+        transition: color 0.5s ease-in-out;
+      }
+
+      .dashes {
+        span {
+          background-color: var(--header-accent);
+          transition: all 0.5s ease-in-out;
+        }
+      }
+
+      &.active {
+        background-color: var(--header-bg);
+        color: var(--header-text);
+      }
+    }
+
+    .menu {
+      background-color: var(--menu-bg);
+      color: var(--menu-text);
+      transition: all 0.5s ease-in-out;
+      pointer-events: auto;
+      z-index: 1001;
+
+      ul {
+        color: var(--menu-text);
+
+        li {
+          a {
+            color: var(--menu-text);
+            transition: color 0.3s ease-in-out;
+          }
+
+          &:hover {
+            color: var(--header-accent);
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,34 +1,36 @@
-import "./NavBar.scss";
-import {Dispatch, FC, SetStateAction} from "react";
+import { FC } from 'react';
+import { motion } from 'framer-motion';
+import { SectionTheme } from '../../constants/themes';
+import './NavBar.scss';
 
-interface navbarProps {
-    menuOpen: boolean;
-    setMenuOpen: Dispatch<SetStateAction<boolean>>;
+interface NavBarProps {
+  theme: SectionTheme;
+  menuOpen: boolean;
+  setMenuOpen: (open: boolean) => void;
 }
 
-// Function component typed with MyComponentProps
-const NavBar: FC<navbarProps> = ({ menuOpen, setMenuOpen }) => {
-    return (
-        <div className={"navbar " + (menuOpen ? "active" : "")}>
-            <div className="wrapper">
-                <div className="left">
-                    <a href="#intro" className="logo">
-                        pedro.
-                    </a>
-                    <div className="itemContainer">
-                        <span>pedelgadillo@gmail.com</span>
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="dashes" onClick={() => setMenuOpen(!menuOpen)}>
-                    <span className="line1"></span>
-                        <span className="line2"></span>
-                        <span className="line3"></span>
-                    </div>
-                </div>
-            </div>
+const NavBar: FC<NavBarProps> = ({ theme, menuOpen, setMenuOpen }) => {
+  return (
+    <motion.nav 
+      className="navbar"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      style={{
+        backgroundColor: theme.background,
+        color: theme.text
+      }}
+    >
+      <div className="logo">PD</div>
+      <div className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
+        <div className={`dashes ${menuOpen ? 'active' : ''}`}>
+          <span style={{ backgroundColor: theme.accent }}></span>
+          <span style={{ backgroundColor: theme.accent }}></span>
+          <span style={{ backgroundColor: theme.accent }}></span>
         </div>
-    );
+      </div>
+    </motion.nav>
+  );
 };
 
 export default NavBar;
