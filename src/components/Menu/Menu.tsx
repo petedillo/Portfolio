@@ -10,16 +10,23 @@ interface MenuProps {
 }
 
 const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <AnimatePresence>
       {menuOpen && (
-        <motion.div
-          className="menu-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setMenuOpen(false)}
-        >
+        <>
+          <motion.div
+            className="menu-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleOverlayClick}
+          />
           <motion.div
             className="menu"
             initial={{ x: '100%' }}
@@ -38,7 +45,7 @@ const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
               <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
             </ul>
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

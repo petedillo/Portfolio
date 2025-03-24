@@ -2,7 +2,7 @@
 
 $experience-card-hover-bg: $secondaryColor;
 
-.experience {
+.experience-card {
   color: black;
 
   .card {
@@ -12,7 +12,6 @@ $experience-card-hover-bg: $secondaryColor;
     border-radius: 5px;
     padding: 20px;
     transition: all 0.2s ease-in-out;
-
 
     &:hover {
       transform: translateY(-5px) scale(1.02);
@@ -38,7 +37,6 @@ $experience-card-hover-bg: $secondaryColor;
 
       h1 {
         font-size: 1.2rem;
-        //margin: 0;
         padding: 0;
         margin-left: auto;
       }

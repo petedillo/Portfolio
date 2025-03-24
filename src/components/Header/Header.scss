@@ -4,8 +4,8 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: all 0.5s ease-in-out;
   pointer-events: none;
+  background-color: var(--header-bg);
 
   * {
     pointer-events: auto;
@@ -13,50 +13,144 @@
 
   :global {
     .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
       background-color: var(--header-bg);
       color: var(--header-text);
       transition: all 0.5s ease-in-out;
-      pointer-events: auto;
       z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
 
       .logo {
         color: var(--header-text);
+        font-size: 24px;
+        font-weight: bold;
         transition: color 0.5s ease-in-out;
       }
 
-      .dashes {
-        span {
-          background-color: var(--header-accent);
-          transition: all 0.5s ease-in-out;
-        }
-      }
+      .menu-button {
+        cursor: pointer;
+        padding: 10px;
+        
+        .dashes {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          transition: all 0.3s ease-in-out;
 
-      &.active {
-        background-color: var(--header-bg);
-        color: var(--header-text);
+          span {
+            width: 30px;
+            height: 2px;
+            background-color: var(--header-text);
+            transition: all 0.3s ease-in-out;
+          }
+
+          &.active {
+            span {
+              &:first-child {
+                transform: translateY(8px) rotate(45deg);
+              }
+              &:nth-child(2) {
+                opacity: 0;
+              }
+              &:last-child {
+                transform: translateY(-8px) rotate(-45deg);
+              }
+            }
+          }
+        }
       }
     }
 
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 1001;
+      pointer-events: auto;
+    }
+
     .menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100vh;
       background-color: var(--menu-bg);
       color: var(--menu-text);
       transition: all 0.5s ease-in-out;
+      z-index: 1002;
       pointer-events: auto;
-      z-index: 1001;
+      padding: 80px 50px;
 
       ul {
         color: var(--menu-text);
+        list-style: none;
+        padding: 0;
+        margin: 0;
 
         li {
+          margin: 20px 0;
+
           a {
             color: var(--menu-text);
-            transition: color 0.3s ease-in-out;
-          }
-
-          &:hover {
-            color: var(--header-accent);
-            transform: scale(1.05);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 500;
             transition: all 0.3s ease-in-out;
+            display: block;
+            padding: 10px 0;
+
+            &:hover {
+              color: var(--header-accent);
+              transform: translateX(10px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    :global {
+      .navbar {
+        padding: 0 20px;
+        height: 60px;
+
+        .logo {
+          font-size: 20px;
+        }
+
+        .menu-button {
+          .dashes {
+            span {
+              width: 25px;
+            }
+          }
+        }
+      }
+
+      .menu {
+        width: 100%;
+        padding: 70px 30px;
+
+        ul {
+          li {
+            a {
+              font-size: 20px;
+            }
           }
         }
       }

@@ -10,12 +10,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1000;
+    z-index: 1002;
     transition: all 0.3s ease-in-out;
+    background-color: var(--header-bg);
+    color: var(--header-text);
 
     .logo {
         font-size: 24px;
         font-weight: bold;
+        color: var(--header-text);
         transition: color 0.3s ease-in-out;
     }
 
@@ -32,6 +35,7 @@
             span {
                 width: 30px;
                 height: 2px;
+                background-color: var(--header-text);
                 transition: all 0.3s ease-in-out;
             }
 
