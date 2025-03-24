@@ -3,19 +3,27 @@
 .education-card,
 .experience-card {
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
 
   .card {
-    background: rgba(10, 25, 47, 0.7);
-    border: 1px solid var(--theme-text);
-    border-radius: 5px;
-    padding: 2rem;
+    background: rgba(10, 25, 47, 0.85);
+    border: 2px solid var(--theme-text);
+    border-radius: 8px;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
     color: var(--theme-text);
     font-family: 'Courier New', monospace;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 10px var(--theme-glow);
+    box-shadow: 0 0 20px var(--theme-glow);
+    backdrop-filter: blur(10px);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px var(--theme-glow);
+    }
 
     &::before {
       content: '';
@@ -23,7 +31,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
+      height: 3px;
       background: var(--theme-text);
       animation: scanline 2s linear infinite;
     }
@@ -32,7 +40,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       position: relative;
 
       &::before {
@@ -44,7 +52,7 @@
 
       h2 {
         color: var(--theme-accent);
-        font-size: 1.8rem;
+        font-size: clamp(1.4rem, 3vw, 1.6rem);
         margin: 0;
         text-shadow: 0 0 5px var(--theme-accent);
       }
@@ -53,7 +61,7 @@
         cursor: pointer;
         
         .arrow {
-          font-size: 2rem;
+          font-size: clamp(1.5rem, 3vw, 1.8rem);
           color: var(--theme-accent);
           filter: drop-shadow(0 0 5px var(--theme-accent));
           cursor: pointer;
@@ -67,14 +75,14 @@
 
     h3 {
       color: var(--theme-accent);
-      font-size: 1.4rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
       margin: 0 0 0.5rem 0;
       text-shadow: 0 0 5px var(--theme-accent);
     }
 
     .duration {
       color: var(--theme-text);
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 2vw, 1rem);
       margin: 0 0 1rem 0;
       opacity: 0.8;
     }
@@ -90,10 +98,12 @@
         color: var(--theme-accent);
         font-weight: bold;
         margin-right: 0.5rem;
+        font-size: clamp(0.9rem, 2vw, 1rem);
       }
 
       .honors-value {
         color: var(--theme-text);
+        font-size: clamp(0.9rem, 2vw, 1rem);
       }
     }
 
@@ -107,6 +117,7 @@
         padding-left: 1.5rem;
         position: relative;
         color: var(--theme-text);
+        font-size: clamp(0.9rem, 2vw, 1rem);
 
         &::before {
           content: ">";
@@ -132,24 +143,10 @@
   .education-card,
   .experience-card {
     .card {
-      padding: 1.5rem;
+      padding: 1.25rem;
 
       .terminal-prompt {
-        h2 {
-          font-size: 1.4rem;
-        }
-
-        .arrow-container .arrow {
-          font-size: 1.5rem;
-        }
-      }
-
-      h3 {
-        font-size: 1.2rem;
-      }
-
-      .duration {
-        font-size: 1rem;
+        margin-bottom: 1rem;
       }
     }
   }
