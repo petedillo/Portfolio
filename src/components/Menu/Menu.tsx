@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Menu.scss';
 
@@ -9,6 +9,24 @@ interface MenuProps {
 }
 
 const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen, setMenuOpen]);
+
   const menuVariants = {
     closed: {
       opacity: 0,
@@ -41,6 +59,23 @@ const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
     })
   };
 
+  const closeButtonVariants = {
+    closed: { 
+      opacity: 0,
+      rotate: -180,
+      scale: 0.8
+    },
+    open: { 
+      opacity: 1,
+      rotate: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    }
+  };
+
   const menuItems = [
     { id: 'intro', label: 'Home' },
     { id: 'summary', label: 'About' },
@@ -58,24 +93,36 @@ const Menu: FC<MenuProps> = ({ theme, menuOpen, setMenuOpen }) => {
           animate="open"
           exit="closed"
         >
-          <div className="menu-items">
-            {menuItems.map((item, i) => (
-              <motion.div
-                key={item.id}
-                className="menu-item"
-                custom={i}
-                variants={menuItemVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                onClick={() => {
-                  setMenuOpen(false);
-                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {item.label}
-              </motion.div>
-            ))}
+          <div className="menu-content" ref={menuRef}>
+            <motion.button
+              className="close-button"
+              onClick={() => setMenuOpen(false)}
+              variants={closeButtonVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              ×
+            </motion.button>
+            <div className="menu-items">
+              {menuItems.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  className="menu-item"
+                  custom={i}
+                  variants={menuItemVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {item.label}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       )}
