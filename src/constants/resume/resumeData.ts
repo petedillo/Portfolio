@@ -11,7 +11,7 @@ export const resumeData: ResumeData = {
       duration: "Jan 2024 - Present",
       responsibilities: [
         "Developed a full-stack project tracking application using Java, Spring Boot, React, and PostgreSQL.",
-        "Implemented CI/CD pipelines using Rio (Apple's Jenkins).",
+        "Deployed application using Terraform and AWS.",
         "Improved data processing speed significantly by optimizing data models.",
         "Developed comprehensive unit tests for both the backend and frontend."
       ]
