@@ -1,5 +1,6 @@
 import "./Intro.scss";
 import { ReactTyped } from "react-typed";
+import { motion } from "framer-motion";
 
 interface IntroProps {
   menuOpen: boolean;
@@ -10,37 +11,72 @@ const Intro: React.FC<IntroProps> = ({ menuOpen }) => {
 
   return (
     <div className="intro" id="intro">
-      <div className="left">
+      <motion.div 
+        className="left"
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className={"imgContainer " + (menuOpen && "active")}>
           <img src="assets/pedro.png" alt="Pedro smiling" />
         </div>
-      </div>
-      <div className="right">
+      </motion.div>
+      <motion.div 
+        className="right"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="wrapper">
-          <h2>Hello! I'm</h2>
-          <h1>Pedro Delgadillo</h1>
-          <h3 className={menuOpen ? "closed" : "open"}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            Hello! I'm
+          </motion.h2>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            Pedro Delgadillo
+          </motion.h1>
+          <motion.h3 
+            className={menuOpen ? "closed" : "open"}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
             Seeking opportunities as a{" "}
-            <ReactTyped
-              strings={[
-                "Full-Stack Developer",
-                "Java Developer",
-                "DevOps Engineer",
-                "Software Engineer",
-              ]}
-              typeSpeed={40}
-              backSpeed={50}
-              backDelay={1000}
-              startDelay={500}
-              showCursor={false}
-              className={typedTextClass}
-            />
-          </h3>
+            <span className="typed-text">
+              <ReactTyped
+                strings={[
+                  "Full-Stack Developer",
+                  "Java Developer",
+                  "DevOps Engineer",
+                  "Software Engineer",
+                ]}
+                typeSpeed={40}
+                backSpeed={50}
+                backDelay={1000}
+                startDelay={500}
+                showCursor={false}
+                className={typedTextClass}
+                cursorChar="|"
+              />
+            </span>
+          </motion.h3>
         </div>
-        <a href="#summary">
+        <motion.a 
+          href="#summary"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
           <img src="assets/down.png" alt="down arrow" />
-        </a>
-      </div>
+        </motion.a>
+      </motion.div>
     </div>
   );
 };

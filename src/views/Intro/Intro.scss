@@ -1,17 +1,22 @@
 @use '../../variables.module.scss' as *;
 
 .intro {
-  background-color: $introPageBG;
-  color: $introPageText;
+  background: linear-gradient(135deg, #1a1a1a, #00a3e0);
+  color: #fff200;
   display: flex;
+  min-height: 100%;
+  position: relative;
+  overflow: hidden;
 
   .left {
     flex: 0.5;
     overflow: hidden;
+    position: relative;
+    
     .imgContainer {
       width: 700px;
       height: 700px;
-      background-color: $secondaryColor;
+      background: linear-gradient(45deg, #39ff14, #8c52ff);
       border-radius: 50%;
       display: flex;
       align-items: flex-end;
@@ -20,20 +25,32 @@
       transition: all 1s ease;
       margin: 16px;
       overflow: hidden;
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
 
       img {
         height: 100%;
         object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
       }
 
       &.active {
-        background-color: $mainColor;
+        background: linear-gradient(45deg, #ff007f, #ff6f61);
+        box-shadow: 0 0 30px rgba(255, 0, 127, 0.3);
       }
     }
   }
+
   .right {
     flex: 0.5;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
 
     .wrapper {
       width: 100%;
@@ -43,39 +60,166 @@
       flex-direction: column;
       justify-content: center;
       transition: all 1s ease;
+
       h1 {
         font-size: 60px;
         margin: 10px 0;
+        color: #fff200;
+        text-shadow: 0 0 10px rgba(255, 242, 0, 0.5);
+        animation: glow 2s ease-in-out infinite alternate;
       }
+
       h2 {
         font-size: 35px;
+        color: #39ff14;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
       }
+
       h3 {
         font-size: 30px;
+        color: #ff007f;
+        text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
         span {
           font-size: inherit;
+          white-space: nowrap;
+          overflow: visible;
         }
       }
+
       .open {
-        color: $introPageText;
+        color: #fff200;
       }
+
       .closed {
-        color: $typedText;
+        color: #ff007f;
       }
     }
+
     a {
       position: absolute;
       bottom: 10px;
       left: 40%;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(5px);
+      }
 
       img {
         width: 30px;
         animation: arrowBlink 2s infinite;
+        filter: drop-shadow(0 0 5px #fff200);
       }
-      @keyframes arrowBlink {
-        100% {
-          opacity: 0;
+    }
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px rgba(255, 242, 0, 0.5),
+                   0 0 20px rgba(255, 242, 0, 0.3),
+                   0 0 30px rgba(255, 242, 0, 0.2);
+    }
+    to {
+      text-shadow: 0 0 20px rgba(255, 242, 0, 0.8),
+                   0 0 30px rgba(255, 242, 0, 0.5),
+                   0 0 40px rgba(255, 242, 0, 0.3);
+    }
+  }
+
+  @keyframes arrowBlink {
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .left .imgContainer {
+      width: 500px;
+      height: 500px;
+    }
+
+    .right .wrapper {
+      h1 {
+        font-size: 50px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 25px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem;
+
+    .left {
+      flex: none;
+      margin-bottom: 2rem;
+
+      .imgContainer {
+        width: 300px;
+        height: 300px;
+        float: none;
+        margin: 0 auto;
+      }
+    }
+
+    .right {
+      flex: none;
+      padding: 0;
+      align-items: center;
+
+      .wrapper {
+        padding-left: 0;
+        align-items: center;
+
+        h1 {
+          font-size: 40px;
         }
+
+        h2 {
+          font-size: 25px;
+        }
+
+        h3 {
+          font-size: 20px;
+          justify-content: center;
+        }
+      }
+
+      a {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .left .imgContainer {
+      width: 250px;
+      height: 250px;
+    }
+
+    .right .wrapper {
+      h1 {
+        font-size: 35px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 18px;
       }
     }
   }
