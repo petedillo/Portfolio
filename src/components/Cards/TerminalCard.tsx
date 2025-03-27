@@ -1,81 +1,119 @@
-import { GoArrowLeft } from "react-icons/go";
-import React, { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { ReactTyped } from 'react-typed';
+import { resumeData } from '../../constants/resume/resumeData';
+import { Education, Experience } from '../../constants/resume/resumeDataTypes';
 import "./terminalCard.scss";
 
-interface TerminalCardItem {
+type TerminalCardProps = {
+    type: 'education' | 'experience' | 'summary';
     title: string;
-    subtitle: string;
-    duration: string;
-    items: string[];
-    honors?: {
-        label: string;
-        value: string;
-    };
-}
+};
 
-interface TerminalCardProps {
-    items: TerminalCardItem[];
-    type: 'education' | 'experience';
-}
-
-const TerminalCard: React.FC<TerminalCardProps> = ({ items, type }) => {
+const TerminalCard: React.FC<TerminalCardProps> = ({ type, title }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isTypingComplete, setIsTypingComplete] = useState(false);
+    const [showArrows, setShowArrows] = useState(false);
 
-    const handleNextItem = () => {
-        const newIndex = (currentIndex + 1) % items.length;
-        setCurrentIndex(newIndex);
+    useEffect(() => {
+        if (type === 'summary') {
+            setIsTypingComplete(true);
+            setShowArrows(false);
+        } else {
+            setShowArrows(true);
+        }
+    }, [type]);
+
+    const handleTypingComplete = () => {
+        setIsTypingComplete(true);
     };
 
-    const currentItem = items[currentIndex];
-
-    const arrowVariants: Variants = {
-        initial: { x: 0 },
-        hover: {
-            x: [0, -5, 0],
-            transition: {
-                duration: 0.5,
-                repeat: Infinity,
-                repeatType: "reverse" as const,
-                ease: "easeInOut"
-            }
-        },
-        tap: {
-            scale: 0.9,
-            transition: { duration: 0.1 }
+    const handlePrevious = () => {
+        if (type === 'education') {
+            setCurrentIndex(prev => (prev > 0 ? prev - 1 : resumeData.education.length - 1));
+        } else if (type === 'experience') {
+            setCurrentIndex(prev => (prev > 0 ? prev - 1 : resumeData.experience.length - 1));
         }
+    };
+
+    const handleNext = () => {
+        if (type === 'education') {
+            setCurrentIndex(prev => (prev < resumeData.education.length - 1 ? prev + 1 : 0));
+        } else if (type === 'experience') {
+            setCurrentIndex(prev => (prev < resumeData.experience.length - 1 ? prev + 1 : 0));
+        }
+    };
+
+    const getCurrentContent = (): Education | Experience | null => {
+        if (type === 'education' && Array.isArray(resumeData.education)) {
+            return resumeData.education[currentIndex];
+        } else if (type === 'experience' && Array.isArray(resumeData.experience)) {
+            return resumeData.experience[currentIndex];
+        }
+        return null;
+    };
+
+    const renderContent = () => {
+        if (type === 'summary') {
+            return (
+                <div className="summary-content">
+                    <ReactTyped
+                        strings={[resumeData.professionalSummary]}
+                        typeSpeed={20}
+                        backSpeed={20}
+                        onComplete={handleTypingComplete}
+                        showCursor={!isTypingComplete}
+                    />
+                </div>
+            );
+        }
+
+        const currentData = getCurrentContent();
+        if (!currentData) return null;
+
+        const isEducation = 'institution' in currentData;
+        const title = isEducation ? currentData.institution : currentData.company;
+        const details = isEducation ? currentData.details : currentData.responsibilities;
+
+        return (
+            <div className="card-content">
+                <h3>{title}</h3>
+                <div className="duration">{currentData.duration}</div>
+                {isEducation && currentData.honors && (
+                    <div className="honors">
+                        <span className="honors-label">Honors:</span>
+                        <span className="honors-value">{currentData.honors}</span>
+                    </div>
+                )}
+                <ul>
+                    {details.map((item: string, index: number) => (
+                        <li key={index}>{item}</li>
+                    ))}
+                </ul>
+            </div>
+        );
     };
 
     return (
         <div className={`${type}-card`}>
             <div className="card">
                 <div className="terminal-prompt">
-                    <h2>{currentItem.title}</h2>
-                    <div className="arrow-container">
-                        <motion.div
-                            variants={arrowVariants}
-                            initial="initial"
-                            whileHover="hover"
-                            whileTap="tap"
-                            onClick={handleNextItem}
-                        >
-                            <GoArrowLeft className="arrow" />
-                        </motion.div>
-                    </div>
+                    <h2>{title}</h2>
+                    {showArrows && (
+                        <div className="arrow-container">
+                            <button onClick={handlePrevious} className="arrow-button">
+                                <FaArrowLeft />
+                            </button>
+                            <span className="arrow-text">
+                                {currentIndex + 1} / {type === 'education' ? resumeData.education.length : resumeData.experience.length}
+                            </span>
+                            <button onClick={handleNext} className="arrow-button">
+                                <FaArrowRight />
+                            </button>
+                        </div>
+                    )}
                 </div>
-                <h3>{currentItem.subtitle}</h3>
-                <p className="duration">{currentItem.duration}</p>
-                {currentItem.honors && (
-                    <div className="honors">
-                        <span className="honors-label">{currentItem.honors.label}:</span>
-                        <span className="honors-value">{currentItem.honors.value}</span>
-                    </div>
-                )}
-                <ul>
-                    {currentItem.items.map((item, index) => (
-                        <li key={index}>{item}</li>
-                    ))}
-                </ul>
+                {renderContent()}
             </div>
         </div>
     );
