@@ -20,8 +20,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build "${IMAGE_NAME}:${env.BUILD_ID}"
-                    docker.tag "${IMAGE_NAME}:${env.BUILD_ID}", "${IMAGE_NAME}:latest"
+                    sh """
+                        docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
+                        docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
+                    """
                     echo "Built Docker image: ${IMAGE_NAME}:latest"
                 }
             }
@@ -30,8 +32,10 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.push "${IMAGE_NAME}:${env.BUILD_ID}"
-                    docker.push "${IMAGE_NAME}:latest"
+                    sh """
+                        docker push ${IMAGE_NAME}:${env.BUILD_ID}
+                        docker push ${IMAGE_NAME}:latest
+                    """
                     echo "Pushed Docker images to ${REGISTRY_URL}"
                 }
             }
