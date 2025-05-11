@@ -31,6 +31,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Push to Registry') {
+            steps {
+                script {
+                    sh """
+                        docker push ${IMAGE_NAME}:${env.BUILD_ID}
+                        docker push ${IMAGE_NAME}:latest
+                    """
+                }
+            }
+        }
     }
 
     post {
