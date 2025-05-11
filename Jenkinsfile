@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY_URL = 'diolab:5000'
+        REGISTRY_URL = credentials('REGISTRY_URL')
         IMAGE_NAME = "${REGISTRY_URL}/my-portfolio"
         PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/docker"
         DOCKER_HOST = "unix:///var/run/docker.sock"
