@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -21,29 +22,25 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                node {
-                    script {
-                        sh """
-                            docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
-                            docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
-                        """
-                    }
+                script {
+                    sh """
+                        docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
+                        docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
+                    """
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                node {
-                    script {
-                        withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                            sh """
-                                echo \$DOCKER_PASS | docker login ${REGISTRY_URL} -u \$DOCKER_USER --password-stdin
-                                docker push ${IMAGE_NAME}:${env.BUILD_ID}
-                                docker push ${IMAGE_NAME}:latest
-                                docker logout ${REGISTRY_URL}
-                            """
-                        }
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh """
+                            echo \$DOCKER_PASS | docker login ${REGISTRY_URL} -u \$DOCKER_USER --password-stdin
+                            docker push ${IMAGE_NAME}:${env.BUILD_ID}
+                            docker push ${IMAGE_NAME}:latest
+                            docker logout ${REGISTRY_URL}
+                        """
                     }
                 }
             }
@@ -51,16 +48,14 @@ pipeline {
 
         stage('Deploy to ClientPi') {
             steps {
-                node {
-                    sshagent(credentials: [CLIENT_PI_SSH_CREDS]) {
-                        script {
-                            sh """
-                                ssh -o StrictHostKeyChecking=no ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'
-                                ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'
-                                ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'
-                                ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'
-                            """
-                        }
+                sshagent(credentials: [CLIENT_PI_SSH_CREDS]) {
+                    script {
+                        sh """
+                            ssh -o StrictHostKeyChecking=no ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'
+                            ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'
+                            ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'
+                            ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'
+                        """
                     }
                 }
             }
@@ -69,18 +64,14 @@ pipeline {
 
     post {
         always {
-            node {
-                script {
-                    sh "docker logout ${REGISTRY_URL} || true"
-                    cleanWs()
-                }
+            script {
+                sh "docker logout ${REGISTRY_URL} || true"
+                cleanWs()
             }
         }
         failure {
-            node {
-                script {
-                    sh 'docker system prune -f || true'
-                }
+            script {
+                sh 'docker system prune -f || true'
             }
         }
     }
