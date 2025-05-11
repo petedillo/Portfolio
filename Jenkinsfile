@@ -8,28 +8,24 @@ pipeline {
         CLIENT_PI_SSH_CREDS = 'clientPi-ssh-key'
         CLIENT_PI_HOST = 'clientPi'
         CONTAINER_PORT_MAP = '80:8080'
-        // Add the Docker executable directory to the PATH.  Adjust as needed!
         PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/docker/bin"
+        DOCKER_REGISTRY_CREDS = credentials('docker-registry-credentials')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo "Checking out code..."
-                //  Example:  If you are using git, put your checkout here
-                //  git url: 'your-repo-url', branch: 'your-branch'
+                git branch: 'test', url: 'https://github.com/petedillo/Portfolio.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo "Building Docker image..."
                     sh """
                         docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
                         docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
                     """
-                    echo "Built Docker image: ${IMAGE_NAME}:latest"
                 }
             }
         }
@@ -37,12 +33,12 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    echo "Pushing Docker image..."
                     sh """
+                        echo ${DOCKER_REGISTRY_CREDS_PSW} | docker login ${REGISTRY_URL} -u ${DOCKER_REGISTRY_CREDS_USR} --password-stdin
                         docker push ${IMAGE_NAME}:${env.BUILD_ID}
                         docker push ${IMAGE_NAME}:latest
+                        docker logout ${REGISTRY_URL}
                     """
-                    echo "Pushed Docker images to ${REGISTRY_URL}"
                 }
             }
         }
@@ -51,17 +47,12 @@ pipeline {
             steps {
                 sshagent(credentials: [CLIENT_PI_SSH_CREDS]) {
                     script {
-                        echo "Deploying to ${CLIENT_PI_HOST}..."
-
-                        sh "ssh ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'"
-                        sh "ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'"
-                        echo "Stopped and removed old container ${CONTAINER_NAME}"
-
-                        sh "ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'"
-                        echo "Pulled latest image from ${REGISTRY_URL}"
-
-                        sh "ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'"
-                        echo "Started new container ${CONTAINER_NAME}"
+                        sh """
+                            ssh -o StrictHostKeyChecking=no ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'
+                            ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'
+                            ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'
+                            ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'
+                        """
                     }
                 }
             }
@@ -70,7 +61,11 @@ pipeline {
 
     post {
         always {
+            sh 'docker logout ${REGISTRY_URL} || true'
             cleanWs()
+        }
+        failure {
+            sh 'docker system prune -f || true'
         }
     }
 }
