@@ -3,8 +3,9 @@ pipeline {
 
     environment {
         REGISTRY_URL = credentials('REGISTRY_URL')
-        REGISTRY_PATH = credentials('REGISTRY_PATH')
-        IMAGE_NAME = "${REGISTRY_URL}/${REGISTRY_PATH}"
+        IMAGE_NAME = "${REGISTRY_URL}/my-portfolio"
+        PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/docker"
+        DOCKER_HOST = "unix:///var/run/docker.sock"
     }
 
     stages {
