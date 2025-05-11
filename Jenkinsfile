@@ -41,7 +41,7 @@ pipeline {
                         docker save ${IMAGE_NAME}:${env.BUILD_ID} | ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker load'
                         ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker stop portfolio-container || true'
                         ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker rm portfolio-container || true'
-                        ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker run -d --name portfolio-container -p 3000:3000 ${IMAGE_NAME}:${env.BUILD_ID}'
+                        ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker run -d --name portfolio-container -p 80:80 ${IMAGE_NAME}:${env.BUILD_ID}'
                     """
                 }
             }
