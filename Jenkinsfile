@@ -42,6 +42,21 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to clientPi') {
+            steps {
+                sshagent(credentials: ['id-clientPi-ssh-key']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no pi@clientPi '
+                            docker pull ${IMAGE_NAME}:${env.BUILD_ID} &&
+                            docker stop my-portfolio || true &&
+                            docker rm my-portfolio || true &&
+                            docker run -d --name my-portfolio -p 80:80 ${IMAGE_NAME}:${env.BUILD_ID}
+                        '
+                    """
+                }
+            }
+        }
     }
 
     post {
