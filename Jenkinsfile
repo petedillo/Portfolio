@@ -38,24 +38,21 @@ pipeline {
         }
 
         stage('Deploy to ClientPi') {
-            agent {
-                sshagent([CLIENT_PI_SSH_CREDS]) {
-                    label 'any'
-                }
-            }
             steps {
-                script {
-                    echo "Deploying to ${CLIENT_PI_HOST}..."
+                sshagent(credentials: [CLIENT_PI_SSH_CREDS]) {
+                    script {
+                        echo "Deploying to ${CLIENT_PI_HOST}..."
 
-                    sh "ssh ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'"
-                    sh "ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'"
-                    echo "Stopped and removed old container ${CONTAINER_NAME}"
+                        sh "ssh ${CLIENT_PI_HOST} 'docker stop ${CONTAINER_NAME} || true'"
+                        sh "ssh ${CLIENT_PI_HOST} 'docker rm ${CONTAINER_NAME} || true'"
+                        echo "Stopped and removed old container ${CONTAINER_NAME}"
 
-                    sh "ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'"
-                    echo "Pulled latest image from ${REGISTRY_URL}"
+                        sh "ssh ${CLIENT_PI_HOST} 'docker pull ${IMAGE_NAME}:latest'"
+                        echo "Pulled latest image from ${REGISTRY_URL}"
 
-                    sh "ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'"
-                    echo "Started new container ${CONTAINER_NAME}"
+                        sh "ssh ${CLIENT_PI_HOST} 'docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT_MAP} ${IMAGE_NAME}:latest'"
+                        echo "Started new container ${CONTAINER_NAME}"
+                    }
                 }
             }
         }
