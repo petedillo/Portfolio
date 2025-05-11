@@ -42,5 +42,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Clean Up Image') {
+            steps {
+                script {
+                    sh """
+                        docker rmi -f ${IMAGE_NAME}:${env.BUILD_ID} || true
+                        docker rmi -f ${IMAGE_NAME}:latest || true
+                    """
+                }
+            }
+        }
     }
 }
