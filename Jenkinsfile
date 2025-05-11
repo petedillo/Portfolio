@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deploy to clientPi') {
             steps {
-                sshagent(credentials: ['clientpi-ssh-key']) {
+                sshagent(credentials: ['clientPi-ssh-key']) {
                     sh """
                         docker save ${IMAGE_NAME}:${env.BUILD_ID} | ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker load'
                         ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker stop portfolio-container || true'
