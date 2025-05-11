@@ -8,18 +8,23 @@ pipeline {
         CLIENT_PI_SSH_CREDS = 'clientPi-ssh-key'
         CLIENT_PI_HOST = 'clientPi'
         CONTAINER_PORT_MAP = '80:8080'
+        // Add the Docker executable directory to the PATH.  Adjust as needed!
+        PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/docker/bin"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 echo "Checking out code..."
+                //  Example:  If you are using git, put your checkout here
+                //  git url: 'your-repo-url', branch: 'your-branch'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
+                    echo "Building Docker image..."
                     sh """
                         docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
                         docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
@@ -32,6 +37,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
+                    echo "Pushing Docker image..."
                     sh """
                         docker push ${IMAGE_NAME}:${env.BUILD_ID}
                         docker push ${IMAGE_NAME}:latest
