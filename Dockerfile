@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 
 # Set working directory
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm ci
 
-# Copy project files
+# Copy all project files
 COPY . .
 
 # Build the app
