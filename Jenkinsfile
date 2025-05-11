@@ -3,9 +3,8 @@ pipeline {
 
     environment {
         REGISTRY_URL = credentials('REGISTRY_URL')
-        IMAGE_NAME = "${REGISTRY_URL}/my-portfolio"
-        PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/docker"
-        DOCKER_HOST = "unix:///var/run/docker.sock"
+        REGISTRY_PATH = credentials('REGISTRY_PATH')
+        IMAGE_NAME = "${REGISTRY_URL}/${REGISTRY_PATH}"
     }
 
     stages {
@@ -21,36 +20,19 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Push') {
             steps {
-                script {
-                    sh """
-                        docker build -t ${IMAGE_NAME}:${env.BUILD_ID} .
-                        docker tag ${IMAGE_NAME}:${env.BUILD_ID} ${IMAGE_NAME}:latest
-                    """
-                }
+                sh 'docker build -t $IMAGE_NAME:$BUILD_ID .'
+                sh 'docker tag $IMAGE_NAME:$BUILD_ID $IMAGE_NAME:latest'
+                sh 'docker push $IMAGE_NAME:$BUILD_ID'
+                sh 'docker push $IMAGE_NAME:latest'
             }
         }
 
-        stage('Push to Registry') {
+        stage('Clean Up') {
             steps {
-                script {
-                    sh """
-                        docker push ${IMAGE_NAME}:${env.BUILD_ID}
-                        docker push ${IMAGE_NAME}:latest
-                    """
-                }
-            }
-        }
-
-        stage('Clean Up Image') {
-            steps {
-                script {
-                    sh """
-                        docker rmi -f ${IMAGE_NAME}:${env.BUILD_ID} || true
-                        docker rmi -f ${IMAGE_NAME}:latest || true
-                    """
-                }
+                sh 'docker rmi -f $IMAGE_NAME:$BUILD_ID || true'
+                sh 'docker rmi -f $IMAGE_NAME:latest || true'
             }
         }
     }
