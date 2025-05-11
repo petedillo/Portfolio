@@ -4,12 +4,20 @@ pipeline {
     environment {
         REGISTRY_URL = 'diolab:5000'
         IMAGE_NAME = "${REGISTRY_URL}/my-portfolio"
+        PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/docker"
+        DOCKER_HOST = "unix:///var/run/docker.sock"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
             }
         }
 
