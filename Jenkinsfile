@@ -6,6 +6,8 @@ pipeline {
         IMAGE_NAME = "${REGISTRY_URL}/my-portfolio"
         PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/docker"
         DOCKER_HOST = "unix:///var/run/docker.sock"
+        REMOTE_HOST = credentials('REMOTE_HOST')
+        REMOTE_USER = credentials('REMOTE_USER')
     }
 
     stages {
@@ -32,27 +34,14 @@ pipeline {
             }
         }
 
-        stage('Push to Registry') {
-            steps {
-                script {
-                    sh """
-                        docker push ${IMAGE_NAME}:${env.BUILD_ID}
-                        docker push ${IMAGE_NAME}:latest
-                    """
-                }
-            }
-        }
-
         stage('Deploy to clientPi') {
             steps {
-                sshagent(credentials: ['id-clientPi-ssh-key']) {
+                sshagent(credentials: ['clientpi-ssh-key']) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no pi@clientPi '
-                            docker pull ${IMAGE_NAME}:${env.BUILD_ID} &&
-                            docker stop my-portfolio || true &&
-                            docker rm my-portfolio || true &&
-                            docker run -d --name my-portfolio -p 80:80 ${IMAGE_NAME}:${env.BUILD_ID}
-                        '
+                        docker save ${IMAGE_NAME}:${env.BUILD_ID} | ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker load'
+                        ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker stop portfolio-container || true'
+                        ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker rm portfolio-container || true'
+                        ssh ${REMOTE_USER}@${REMOTE_HOST} 'docker run -d --name portfolio-container -p 3000:3000 ${IMAGE_NAME}:${env.BUILD_ID}'
                     """
                 }
             }
